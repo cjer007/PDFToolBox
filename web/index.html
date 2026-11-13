@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF 工具箱 · 全部本地处理，文件不上传</title>
+<meta name="description" content="19 项 PDF 处理功能，全部在你的电脑本地完成，文件不上传服务器。一次买断 ¥66，终身使用，不限次数。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#D93025; --red-d:#b3261c; --red-l:#fdefed;
+  --dark:#16181d; --ink:#2b2f36; --gray:#5b6470; --mute:#8a929e;
+  --line:#e6e8ec; --bg:#fafbfc; --white:#fff;
+}
+html{scroll-behavior:smooth}
+/* 锚点跳转时给固定导航栏留出空间，避免标题被遮住 */
+section[id],div[id]{scroll-margin-top:92px}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:16px; line-height:1.75; color:var(--ink);
+  background:
+    radial-gradient(1100px 720px at 6% -8%, rgba(217,48,37,.075) 0%, transparent 58%),
+    radial-gradient(950px 640px at 96% 4%, rgba(66,133,244,.055) 0%, transparent 52%),
+    radial-gradient(800px 600px at 50% 100%, rgba(217,48,37,.03) 0%, transparent 60%),
+    linear-gradient(180deg,#fcfdfe 0%,#f5f7fa 100%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+
+/* ── 顶栏 ───────────────────────── */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);
+  backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;height:72px;gap:34px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;letter-spacing:-.3px;color:var(--dark)}
+.logo i{width:34px;height:34px;background:linear-gradient(135deg,var(--red),#e8503f);border-radius:9px;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-style:normal;
+  font-size:17px;font-weight:900;box-shadow:0 2px 8px rgba(217,48,37,.3)}
+nav ul{display:flex;gap:30px;list-style:none;font-size:15.5px;color:var(--gray);margin-left:auto}
+nav ul a{transition:color .15s;padding:4px 0}
+nav ul a:hover{color:var(--red)}
+nav .btn{background:var(--red);color:#fff;padding:11px 24px;border-radius:8px;font-size:15px;
+  font-weight:600;transition:.15s;box-shadow:0 2px 10px rgba(217,48,37,.22)}
+nav .btn:hover{background:var(--red-d);transform:translateY(-1px)}
+
+/* ── Hero ───────────────────────── */
+.hero{padding:96px 0 84px;text-align:center;
+  background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-40%;left:50%;transform:translateX(-50%);
+  width:900px;height:900px;background:radial-gradient(circle,rgba(217,48,37,.05) 0%,transparent 65%);
+  pointer-events:none}
+.hero .wrap{position:relative}
+.hero .tag{display:inline-flex;align-items:center;gap:9px;background:var(--red-l);color:var(--red);
+  border-radius:32px;padding:9px 20px;font-size:15px;font-weight:600;margin-bottom:28px}
+.hero h1{font-size:56px;line-height:1.24;font-weight:800;letter-spacing:-1.6px;
+  color:var(--dark);margin-bottom:24px}
+.hero h1 em{color:var(--red);font-style:normal}
+.hero p.sub{font-size:19.5px;line-height:1.8;color:var(--gray);max-width:700px;margin:0 auto 40px}
+.hero .cta{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+.btn-lg{display:inline-flex;align-items:center;gap:10px;padding:17px 38px;border-radius:10px;
+  font-size:17.5px;font-weight:700;transition:.18s}
+.btn-main{background:var(--red);color:#fff;box-shadow:0 6px 22px rgba(217,48,37,.3)}
+.btn-main:hover{background:var(--red-d);transform:translateY(-2px);box-shadow:0 10px 28px rgba(217,48,37,.36)}
+.btn-ghost{background:#fff;color:var(--dark);border:2px solid var(--line)}
+.btn-ghost:hover{border-color:var(--red);color:var(--red)}
+.hero .note{font-size:15px;color:var(--mute)}
+
+/* ── 三大卖点 ───────────────────── */
+.pillars{background:#fff;padding:80px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pillars .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+.pillar{text-align:center;padding:0 12px}
+.pillar .ico{width:68px;height:68px;margin:0 auto 22px;border-radius:18px;
+  background:linear-gradient(135deg,var(--red-l),#fbe0dc);
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+  box-shadow:0 4px 14px rgba(217,48,37,.08)}
+.pillar h3{font-size:20px;font-weight:700;margin-bottom:12px;color:var(--dark)}
+.pillar p{font-size:16.5px;line-height:1.8;color:var(--gray)}
+
+/* ── 功能区 ─────────────────────── */
+.tools{padding:96px 0;background:var(--bg)}
+.sec-head{text-align:center;margin-bottom:56px}
+.sec-head h2{font-size:40px;font-weight:800;letter-spacing:-1px;color:var(--dark);margin-bottom:14px}
+.sec-head p{font-size:17.5px;color:var(--gray)}
+.group{margin-bottom:52px}
+.group h4{font-size:14.5px;font-weight:700;color:var(--mute);letter-spacing:1.6px;
+  text-transform:uppercase;margin-bottom:20px;padding-left:4px;display:flex;align-items:center;gap:10px}
+.group h4::after{content:"";flex:1;height:1px;background:var(--line)}
+/* 「没有的功能」说明块 */
+.note-block{margin-top:44px;padding:22px 26px;background:rgba(255,255,255,.75);
+  border:1px solid var(--line);border-left:4px solid var(--mute);border-radius:10px;
+  font-size:15.5px;color:var(--gray);line-height:1.85}
+.note-block b{color:var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px 22px;
+  transition:.2s;display:flex;gap:16px;align-items:flex-start}
+.card:hover{border-color:var(--red);box-shadow:0 8px 28px rgba(0,0,0,.08);transform:translateY(-3px)}
+.card .ci{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:23px;flex-shrink:0;background:var(--bg)}
+.card b{display:block;font-size:17px;font-weight:700;margin-bottom:6px;color:var(--dark);letter-spacing:-.2px}
+.card span{font-size:14.5px;color:var(--gray);line-height:1.65}
+
+/* ── 价格 ───────────────────────── */
+.price{background:var(--dark);color:#fff;padding:96px 0}
+.price .sec-head h2{color:#fff}
+.price .sec-head p{color:#939aa6}
+.plans{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.plan{background:#212429;border:1.5px solid #2f333a;border-radius:18px;padding:38px 34px;width:330px}
+.plan.hot{background:#fff;color:var(--ink);border-color:var(--red);position:relative;
+  box-shadow:0 16px 48px rgba(217,48,37,.22);transform:scale(1.03)}
+.plan.hot .badge{position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+  background:var(--red);color:#fff;font-size:13.5px;font-weight:700;padding:6px 20px;
+  border-radius:22px;white-space:nowrap;box-shadow:0 4px 12px rgba(217,48,37,.4)}
+.plan .pn{font-size:15.5px;font-weight:700;margin-bottom:10px;color:#939aa6}
+.plan.hot .pn{color:var(--gray)}
+.plan .amount{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1.05;color:#fff}
+.plan.hot .amount{color:var(--dark)}
+.plan .amount small{font-size:17px;font-weight:600;color:#939aa6;letter-spacing:0}
+.plan.hot .amount small{color:var(--gray)}
+.usd{font-size:14px;color:var(--gray);margin-top:8px;padding-bottom:4px}
+.usd b{color:var(--red);font-size:15px}
+.plan ul{list-style:none;margin:26px 0 28px;font-size:15.5px;color:#b4bac4;line-height:1.6}
+.plan.hot ul{color:var(--gray)}
+.plan li{padding:9px 0;display:flex;gap:11px;align-items:flex-start}
+.plan li::before{content:"✓";color:var(--red);font-weight:900;flex-shrink:0;font-size:16px}
+/* 左侧是竞品的缺点，用灰色叉号，避免和右侧优势混淆 */
+.plan:not(.hot) li::before{content:"×";color:#5f6771;font-size:19px;font-weight:400}
+.plan .btn-lg{width:100%;justify-content:center;padding:16px;font-size:16.5px}
+.compare{margin-top:48px;text-align:center;font-size:16px;color:#7f8792}
+.compare b{color:#fff}
+.compare b.hot{color:#ff9a92}
+
+/* ── FAQ ────────────────────────── */
+.faq{padding:96px 0;background:var(--bg)}
+.faq .list{max-width:840px;margin:0 auto}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:13px;
+  margin-bottom:13px;padding:22px 26px;transition:.15s}
+.faq details[open]{border-color:#d5d9e0;box-shadow:0 4px 16px rgba(0,0,0,.04)}
+.faq summary{font-weight:700;font-size:17px;cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--dark)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--red);font-size:26px;font-weight:300;
+  line-height:1;flex-shrink:0;transition:.2s}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin-top:14px;font-size:16px;color:var(--gray);line-height:1.85}
+
+/* ── 下载 ───────────────────────── */
+.dl{padding:80px 0 88px;background:rgba(255,255,255,.72);text-align:center}
+.dl h2{font-size:36px;font-weight:800;margin-bottom:14px;letter-spacing:-.8px;color:var(--dark)}
+.dl p{color:var(--gray);margin-bottom:34px;font-size:17px}
+.dl .opts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+  max-width:760px;margin:0 auto}
+.dlopt{background:#fff;border:1.5px solid var(--line);border-radius:13px;
+  padding:20px 24px;transition:.18s;display:flex;align-items:center;
+  justify-content:space-between;gap:18px;text-align:left}
+.dlopt:hover{border-color:var(--red);box-shadow:0 7px 22px rgba(0,0,0,.07);transform:translateY(-2px)}
+.dlopt .info{min-width:0}
+.dlopt .os{font-size:16.5px;font-weight:700;margin-bottom:3px;color:var(--dark)}
+.dlopt .meta{font-size:13.5px;color:var(--mute);line-height:1.5}
+.dlopt .btn-sm{display:inline-block;background:var(--red);color:#fff;padding:10px 22px;
+  border-radius:8px;font-size:14.5px;font-weight:600;transition:.15s;white-space:nowrap;flex-shrink:0}
+.dlopt .btn-sm:hover{background:var(--red-d)}
+.dlopt .soon{display:inline-block;background:#f1f2f4;color:#a0a7b0;padding:10px 22px;
+  border-radius:8px;font-size:14.5px;font-weight:600;white-space:nowrap;flex-shrink:0}
+.dl .fine{margin-top:30px;font-size:14px;color:var(--mute);line-height:1.9}
+
+/* ── 页脚 ───────────────────────── */
+footer{background:var(--dark);color:#7f8792;padding:44px 0;font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:center}
+footer a{transition:color .15s}
+footer a:hover{color:#fff}
+
+/* ── 响应式 ─────────────────────── */
+@media(max-width:900px){
+  .wrap{padding:0 22px}
+  .hero{padding:64px 0 56px}
+  .hero h1{font-size:38px;letter-spacing:-1px}
+  .hero p.sub{font-size:17.5px}
+  .sec-head h2{font-size:30px}
+  .pillars .grid{grid-template-columns:1fr;gap:40px}
+  .cards{grid-template-columns:1fr}
+  .plans{flex-direction:column;align-items:stretch}
+  .plan{width:auto}
+  .plan.hot{transform:none}
+  nav ul{display:none}
+  nav .wrap{height:64px;gap:0}
+  .logo{font-size:17px}
+  .tools,.price,.faq,.dl{padding:64px 0}
+  .btn-lg{padding:15px 28px;font-size:16px}
+  .dlopt{width:100%;min-width:0}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="logo"><i>P</i> PDF 工具箱</div>
+  <ul>
+    <li><a href="#tools">功能</a></li>
+    <li><a href="#price">价格</a></li>
+    <li><a href="#faq">常见问题</a></li>
+    <li><a href="#download">下载</a></li>
+  </ul>
+  <a class="btn" href="#download">立即下载</a>
+</div></nav>
+
+<section class="hero"><div class="wrap">
+  <div class="tag">🔒 文件不上传 · 断网也能用</div>
+  <h1>你的 PDF，<em>始终留在你自己的电脑里</em></h1>
+  <p class="sub">
+    19 项 PDF 处理功能，全部在本机完成。不上传、不联网、不排队、不限次数。<br>
+    合同、病历、卷宗、身份证扫描件——处理它们不该先传到别人的服务器上。
+  </p>
+  <div class="cta">
+    <a class="btn-lg btn-main" href="#download">免费下载 · 试用 5 次</a>
+    <a class="btn-lg btn-ghost" href="#price">看价格</a>
+  </div>
+  <div class="note">Windows 10/11 64 位 · 无需安装 Python · 无需注册账号</div>
+</div></section>
+
+<section class="pillars"><div class="wrap"><div class="grid">
+  <div class="pillar">
+    <div class="ico">🔒</div>
+    <h3>全程本地处理</h3>
+    <p>PDF 引擎内置在软件里，文件从头到尾不离开你的硬盘。拔掉网线照样能用。</p>
+  </div>
+  <div class="pillar">
+    <div class="ico">💰</div>
+    <h3>¥66 一次买断</h3>
+    <p>不是订阅，没有月费年费。付一次，终身用，不限次数、不限文件大小。</p>
+  </div>
+  <div class="pillar">
+    <div class="ico">⚡</div>
+    <h3>没有上传等待</h3>
+    <p>不用等上传，不用等转码，不用等下载。几百页的卷宗，本地几秒处理完。</p>
+  </div>
+</div></div></section>
+
+<section class="tools" id="tools"><div class="wrap">
+  <div class="sec-head">
+    <h2>19 项功能，一个软件搞定</h2>
+    <p>对标 iLovePDF 的全部常用功能，但文件不用交出你的电脑</p>
+  </div>
+
+  <div class="group"><h4>整理 · Organize</h4><div class="cards">
+    <div class="card"><div class="ci">📎</div><div><b>合并 PDF</b><span>把多个 PDF 按你指定的顺序拼成一份。支持上百个文件、上千页，可上下拖动调整顺序，支持混合不同页面尺寸。</span></div></div>
+    <div class="card"><div class="ci">✂️</div><div><b>拆分 PDF</b><span>按固定页数拆（每 10 页一份），或自定义范围拆（1-3|4-6|7-）。适合把一本卷宗拆成单份，或把扫描件按章节分开。</span></div></div>
+    <div class="card"><div class="ci">📄</div><div><b>提取页面</b><span>从几十上百页里挑出你要的那几页，组成新文件。支持 <code>1-3,5,7-9</code> 这样的表达式，不用一页页点。</span></div></div>
+    <div class="card"><div class="ci">🗑️</div><div><b>删除页面</b><span>去掉空白页、重复页、不需要的附件页。删除后文件结构重建，不会留下残缺字节。</span></div></div>
+    <div class="card"><div class="ci">🔀</div><div><b>页面排序</b><span>扫描时页序乱了？用 <code>3,1,2,4-</code> 这样的表达式重新排列，倒序、抽页、重复页都能做。</span></div></div>
+    <div class="card"><div class="ci">🔄</div><div><b>旋转页面</b><span>把横躺的扫描页扶正。支持 90/180/270 度，可只转指定页，也可整本统一转。</span></div></div>
+  </div></div>
+
+  <div class="group"><h4>转换 · Convert</h4><div class="cards">
+    <div class="card"><div class="ci">📝</div><div><b>Office 转 PDF</b><span>Word、Excel、PowerPoint 一键转 PDF。直接调用你电脑上装好的 Office，排版、字体、公式、图表原样保留，比在线工具更准。支持整个文件夹批量转。</span></div></div>
+    <div class="card"><div class="ci">🖼️</div><div><b>PDF 转图片</b><span>把每页导出成 PNG 或 JPG，DPI 从 72 到 600 可调。150 适合屏幕看，300 适合打印，600 适合归档。</span></div></div>
+    <div class="card"><div class="ci">📷</div><div><b>图片转 PDF</b><span>手机拍的一堆证件照、现场照合成一份 PDF。可选按原图尺寸，也可统一放 A4 居中，顺序可调。</span></div></div>
+    <div class="card"><div class="ci">📘</div><div><b>PDF 转 Word</b><span>转成可编辑的 .docx，段落、表格、图片会尽量还原。适合要改内容的场景，比如在别人的合同上改条款。</span></div></div>
+    <div class="card"><div class="ci">📃</div><div><b>PDF 转文本</b><span>只取文字，丢掉所有排版，输出纯 .txt。适合拿去检索、复制、喂给别的程序处理。</span></div></div>
+  </div></div>
+
+  <div class="group"><h4>优化 · Optimize</h4><div class="cards">
+    <div class="card"><div class="ci">🗜️</div><div><b>压缩 PDF</b><span>三种强度：无损重排（文字还能选中复制）、中等（图片降采样）、强力（整页转图）。几百 MB 的扫描件通常能压掉一半以上。</span></div></div>
+    <div class="card"><div class="ci">🩹</div><div><b>修复 PDF</b><span>打不开、提示"文件已损坏"的 PDF，试着重建文件结构救回来。修复成功率和损坏程度有关，修完请自己翻一遍确认没丢页。</span></div></div>
+  </div></div>
+
+  <div class="group"><h4>编辑 · Edit</h4><div class="cards">
+    <div class="card"><div class="ci">🔢</div><div><b>添加页码</b><span>5 种位置（四角 + 底部居中）、4 种格式（第 X 页 / X / Y / - X - / 纯数字），字号和起始页码都能设。给打印出来的材料编页码用。</span></div></div>
+    <div class="card"><div class="ci">✂️</div><div><b>裁剪 PDF</b><span>统一裁掉四周的白边，或者扫描仪留下的黑边。按毫米算，四边可分别设置。裁完页面变小，打印更省纸。</span></div></div>
+    <div class="card"><div class="ci">⬛</div><div><b>标记密文</b><span>把身份证号、电话、住址这些关键字涂黑。注意：这是<b>真删除</b>——文字和底层内容一起从文件里抹掉，涂黑后复制不出来、也还原不了。扫描件需要先 OCR 才能识别文字。</span></div></div>
+    <div class="card"><div class="ci">🔍</div><div><b>比较 PDF</b><span>两份合同、两个版本的报告，逐页对照生成一份差异文件，把改过的页标出来。改一个字也能定位到具体哪一页。</span></div></div>
+  </div></div>
+
+  <div class="group"><h4>安全 · Secure</h4><div class="cards">
+    <div class="card"><div class="ci">🔐</div><div><b>加密 PDF</b><span>给文件设打开密码，AES-256 军用级强度。还能单独设"权限密码"限制打印和复制，两者可以不一样。</span></div></div>
+    <div class="card"><div class="ci">🔓</div><div><b>解除密码</b><span>知道密码的情况下，把加密去掉，以后打开不用再输。不知道密码的破解不了——这是 AES-256。</span></div></div>
+    <div class="card"><div class="ci">💧</div><div><b>添加水印</b><span>铺满页面的斜向文字水印，用来标"内部资料""仅供审阅"或者单位名称。字号、透明度可调，还能顺带加页码。</span></div></div>
+  </div></div>
+
+  <div class="note-block">
+    <b>没有的功能也说清楚：</b>
+    OCR 文字识别、电子签名、PDF 转 Excel/PPT、PDF/A 归档格式 —— 这几项暂时没做。
+    需要的话可以提，看需求多不多。
+  </div>
+</div></section>
+
+<section class="price" id="price"><div class="wrap">
+  <div class="sec-head">
+    <h2>一次买断，不搞订阅</h2>
+    <p>在线 PDF 网站按月收费，还把你的文件存在他们服务器上</p>
+  </div>
+  <div class="plans">
+    <div class="plan">
+      <div class="pn">其他在线工具</div>
+      <div class="amount">¥25<small> /月起</small></div>
+      <ul>
+        <li>每月续费，停付即不能用</li>
+        <li>文件要上传到对方服务器</li>
+        <li>有大小和次数限制</li>
+        <li>数据留存政策不明</li>
+      </ul>
+    </div>
+    <div class="plan hot">
+      <div class="badge">最省</div>
+      <div class="pn">PDF 工具箱 · 终身版</div>
+      <div class="amount">¥66<small> /一次买断</small></div>
+      <div class="usd">境外用户 <b>$8.8</b> · PayPal / 支付宝均可</div>
+      <ul>
+        <li>付一次，终身使用</li>
+        <li>文件全程在你本机</li>
+        <li>不限次数、不限大小</li>
+        <li>断网也能用</li>
+        <li>后续版本免费升级</li>
+      </ul>
+      <a class="btn-lg btn-main" href="#download">立即获取</a>
+    </div>
+  </div>
+  <div class="compare">
+    一杯奶茶的钱，换一个永远属于你的工具 · 折合每天 <b class="hot">不到 1 分钱</b>
+  </div>
+</div></section>
+
+<section class="faq" id="faq"><div class="wrap">
+  <div class="sec-head"><h2>常见问题</h2></div>
+  <div class="list">
+    <details open><summary>文件真的不会上传吗？</summary>
+      <p>不会。PDF 引擎（MuPDF）已经打包进软件里，所有操作都在你电脑的内存和硬盘上完成。
+      软件启动时只会发一次很小的授权校验请求（几十字节，只含机器码），不带任何文件内容。
+      你可以用防火墙拦住它的网络，功能照样全部可用（试用期内）。</p></details>
+    <details><summary>用的是什么引擎？转换效果可靠吗？</summary>
+      <p>PDF 处理用 MuPDF + pypdf，是业界主流的开源引擎。Office 转 PDF 直接调用你电脑上
+      已安装的 Word/Excel/PowerPoint，转换质量就是 Office 自己的水平，比大多数在线工具更好。</p></details>
+    <details><summary>为什么这么便宜？</summary>
+      <p>因为不需要给你租服务器。在线工具要按月收费，很大一部分成本是在付服务器和带宽。
+      这个软件在你电脑上跑，我没有这项成本，所以可以一次买断。</p></details>
+    <details><summary>换电脑了怎么办？</summary>
+      <p>授权绑定机器，换电脑需要重新激活。可以在新机器上用试用次数先试，觉得好用再联系作者。</p></details>
+    <details><summary>支持扫描件吗？</summary>
+      <p>合并、拆分、压缩、加水印、加密都支持扫描件。但「PDF 转 Word」和「标记密文」需要文字层，
+      纯图片的扫描件需要先做 OCR，这两项在扫描件上效果有限。</p></details>
+    <details><summary>能开发票吗？</summary>
+      <p>可以，付款后联系作者提供开票信息。</p></details>
+  </div>
+</div></section>
+
+<section class="dl" id="download"><div class="wrap">
+  <h2>下载</h2>
+  <p>免安装，解压即用。无需 Python 环境，无需注册。</p>
+  <div class="opts">
+    <div class="dlopt">
+      <div class="info">
+        <div class="os">Windows 精简版</div>
+        <div class="meta">Win 10/11 64位 · 90 MB · 18 项</div>
+      </div>
+      <a class="btn-sm" href="https://github.com/cjer007/PDFToolBox/releases/latest/download/PDFToolBoxLite.zip">下载</a>
+    </div>
+    <div class="dlopt">
+      <div class="info">
+        <div class="os">Windows 完整版</div>
+        <div class="meta">Win 10/11 64位 · 145 MB · 19 项</div>
+      </div>
+      <a class="btn-sm" href="https://github.com/cjer007/PDFToolBox/releases/latest/download/PDFToolBox.zip">下载</a>
+    </div>
+    <div class="dlopt">
+      <div class="info">
+        <div class="os">macOS</div>
+        <div class="meta">Apple Silicon / Intel</div>
+      </div>
+      <a class="btn-sm" href="https://github.com/cjer007/PDFToolBox/releases/latest/download/PDFToolBoxLite-mac.zip">下载</a>
+    </div>
+    <div class="dlopt">
+      <div class="info">
+        <div class="os">Android</div>
+        <div class="meta">Android 8.0+</div>
+      </div>
+      <span class="soon">开发中</span>
+    </div>
+  </div>
+  <div class="fine">
+    下载后首次运行会提示选择语言（中/英/日/俄/西）· 免费试用 5 次 · 满意后 ¥66 激活终身版<br>
+    安装包托管在 GitHub Releases，不限速、可断点续传
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div>© 2026 PDF 工具箱 · 全部本地处理</div>
+  <div><a href="#faq">常见问题</a></div>
+</div></footer>
+
+</body>
+</html>
+
+

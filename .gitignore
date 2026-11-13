@@ -1,0 +1,39 @@
+# 打包产物，不入库（发布走 GitHub Releases）
+精简版-160MB/
+完整版-301MB/
+dist/
+build/
+*.spec
+
+# 收款码不入库（避免被滥用）
+pay_qr.png
+
+# 授权数据库与备份
+*.db
+*.db-wal
+*.db-shm
+backups/
+licenses.db
+
+# 本地配置与敏感信息
+管理后台路径.txt
+settings.json
+lic.dat
+
+# 日志
+*.log
+access.log
+srv.log
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
