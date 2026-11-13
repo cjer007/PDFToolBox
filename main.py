@@ -457,67 +457,60 @@ class App(tk.Tk):
         tk.Label(win, text=I.t("pay.steps", p=66), bg="white", fg=GRAY,
                  font=("Microsoft YaHei UI", 9), justify="left").pack(padx=18, anchor="w", pady=(4, 0))
 
-        f = tk.Frame(win, bg="white")
-        f.pack(fill="x", padx=18, pady=8)
-        tk.Label(f, text=I.t("pay.code"), bg="white", fg=DARK,
+        # 邮箱输入 + 提交授权申请
+        ef = tk.Frame(win, bg="white")
+        ef.pack(fill="x", padx=18, pady=(4, 0))
+        tk.Label(ef, text=I.t("pay.email_label"), bg="white", fg=DARK,
                  font=("Microsoft YaHei UI", 9)).pack(side="left")
-        var = tk.StringVar()
-        ent = ttk.Entry(f, textvariable=var, width=22)
-        ent.pack(side="left", padx=8)
-        ent.focus_set()
+        email_var = tk.StringVar()
+        email_ent = ttk.Entry(ef, textvariable=email_var, width=26)
+        email_ent.pack(side="left", padx=8)
+        email_ent.focus_set()
+        tk.Label(ef, text=I.t("pay.email_hint"), bg="white", fg=GRAY,
+                 font=("Microsoft YaHei UI", 8)).pack(side="left")
 
-        msg = tk.Label(win, text="", bg="white", fg=GRAY, font=("Microsoft YaHei UI", 9))
-        msg.pack()
+        msg = tk.Label(win, text="", bg="white", fg=GRAY, font=("Microsoft YaHei UI", 9),
+                       wraplength=420, justify="left")
+        msg.pack(pady=(6, 0))
 
-        def do_redeem():
-            code = var.get().strip()
-            if not code:
-                msg.configure(text=I.t("pay.need_code"), fg="#c62828")
+        def do_apply():
+            email = email_var.get().strip()
+            if not email:
+                msg.configure(text=I.t("pay.email_empty"), fg="#c62828")
                 return
-            msg.configure(text=I.t("pay.checking"), fg=GRAY)
+            if "@" not in email or "." not in email.split("@")[-1]:
+                msg.configure(text=I.t("pay.email_bad"), fg="#c62828")
+                return
+            msg.configure(text=I.t("pay.submitting"), fg=GRAY)
+            btn_apply.configure(state="disabled")
             win.update_idletasks()
-            r = LIC.redeem(code)
+            try:
+                r = LIC.apply_license(email)
+            except Exception as e:
+                r = {"ok": False, "msg": str(e)[:60]}
             if r.get("ok"):
-                msg.configure(text=I.t("pay.success"), fg="#2e7d32")
-                self.after(600, win.destroy)
-                self._lic_check()
+                if r.get("paid"):
+                    msg.configure(text=I.t("pay.already"), fg="#2e7d32")
+                    self.after(800, win.destroy)
+                    self._lic_check()
+                else:
+                    msg.configure(text=r.get("msg") or I.t("pay.submitted"), fg="#2e7d32")
+                    btn_apply.configure(text="已提交 ✓", state="disabled", bg="#c8e6c9")
             else:
-                msg.configure(text=r.get("msg") or I.t("pay.invalid"), fg="#c62828")
+                msg.configure(text=r.get("msg") or "提交失败", fg="#c62828")
+                btn_apply.configure(state="normal")
 
         bf = tk.Frame(win, bg="white")
-        bf.pack(pady=6)
-        tk.Button(bf, text=I.t("pay.activate"), command=do_redeem, bg=RED, fg="white", relief="flat",
-                  font=("Microsoft YaHei UI", 10, "bold"), padx=22, pady=5,
-                  cursor="hand2").pack(side="left", padx=5)
+        bf.pack(pady=10)
+        btn_apply = tk.Button(bf, text=I.t("pay.submit_btn"), command=do_apply, bg=RED, fg="white",
+                              relief="flat", font=("Microsoft YaHei UI", 10, "bold"),
+                              padx=24, pady=6, cursor="hand2")
+        btn_apply.pack(side="left", padx=5)
         tk.Button(bf, text=I.t("pay.close"), command=win.destroy, bg="#eceff1", fg=DARK,
-                  relief="flat", font=("Microsoft YaHei UI", 10), padx=16, pady=5,
+                  relief="flat", font=("Microsoft YaHei UI", 10), padx=18, pady=6,
                   cursor="hand2").pack(side="left")
 
-        # 邮件流程：付款后发邮件，作者后台开通
-        mail_box = tk.Frame(win, bg="#f1f8e9", highlightbackground="#c5e1a5", highlightthickness=1)
-        mail_box.pack(fill="x", padx=18, pady=(0, 10))
-        tk.Label(mail_box, text="付款后把机器码 + 付款截图发到：", bg="#f1f8e9", fg="#33691e",
-                 font=("Microsoft YaHei UI", 9)).pack(anchor="w", padx=10, pady=(7, 0))
-
-        mail_row = tk.Frame(mail_box, bg="#f1f8e9")
-        mail_row.pack(fill="x", padx=10, pady=(1, 7))
-        tk.Label(mail_row, text=I.t("pay.email"), bg="#f1f8e9", fg="#1b5e20",
-                 font=("Consolas", 11, "bold")).pack(side="left")
-
-        def copy_mail():
-            try:
-                self.clipboard_clear()
-                self.clipboard_append(I.t("pay.email"))
-                btn_mail.configure(text="已复制")
-                win.after(1200, lambda: btn_mail.configure(text="复制邮箱"))
-            except Exception:
-                pass
-
-        btn_mail = tk.Button(mail_row, text="复制邮箱", command=copy_mail, bg="#dcedc8", fg="#33691e",
-                             relief="flat", font=("Microsoft YaHei UI", 8), padx=8, pady=1,
-                             cursor="hand2")
-        btn_mail.pack(side="left", padx=10)
-
+        
     # ---------- 执行 ----------
     def _log(self, s):
         self.log.configure(state="normal")
@@ -781,6 +774,7 @@ if __name__ == "__main__":
     ask_language_first_run()
     I.load_lang()
     App().mainloop()
+
 
 
 

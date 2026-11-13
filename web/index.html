@@ -131,6 +131,25 @@ nav .btn:hover{background:var(--red-d);transform:translateY(-1px)}
 .compare b{color:#fff}
 .compare b.hot{color:#ff9a92}
 
+/* PayPal 支付入口 */
+.paypal-box{display:flex;align-items:center;justify-content:space-between;gap:32px;
+  flex-wrap:wrap;margin-top:52px;padding:30px 36px;border-radius:16px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.pp-left{flex:1;min-width:260px;text-align:left}
+.pp-title{font-size:19px;font-weight:700;color:#fff;margin-bottom:8px}
+.pp-desc{font-size:15px;color:#9aa2ae;line-height:1.8}
+.pp-desc b{color:#fff}
+.pp-right{text-align:center;flex-shrink:0}
+.pp-btn{display:inline-flex;align-items:center;gap:14px;background:#FFC439;
+  padding:14px 26px;border-radius:28px;transition:.15s;
+  box-shadow:0 4px 16px rgba(255,196,57,.25)}
+.pp-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,196,57,.35)}
+.pp-logo{font-size:19px;font-weight:800;color:#003087;font-style:italic;letter-spacing:-.5px}
+.pp-logo span{color:#009cde}
+.pp-text{font-size:16px;font-weight:700;color:#003087;
+  border-left:1px solid rgba(0,48,135,.25);padding-left:14px}
+.pp-note{margin-top:10px;font-size:12.5px;color:#7f8792}
+
 /* ── FAQ ────────────────────────── */
 .faq{padding:96px 0;background:var(--bg)}
 .faq .list{max-width:840px;margin:0 auto}
@@ -319,6 +338,23 @@ footer a:hover{color:#fff}
   <div class="compare">
     一杯奶茶的钱，换一个永远属于你的工具 · 折合每天 <b class="hot">不到 1 分钱</b>
   </div>
+
+  <div class="paypal-box">
+    <div class="pp-left">
+      <div class="pp-title">境外用户 · Pay with PayPal</div>
+      <div class="pp-desc">
+        点击下方按钮，跳转到 PayPal 安全支付页完成付款（$8.8 USD）。<br>
+        付款后回到软件，填写你的邮箱并点「提交授权申请」，2 小时内会把激活邮件发到你填的邮箱。
+      </div>
+    </div>
+    <div class="pp-right">
+      <a class="pp-btn" href="https://paypal.me/cjer886/8.8" target="_blank" rel="noopener">
+        <span class="pp-logo">Pay<span>Pal</span></span>
+        <span class="pp-text">Pay $8.8</span>
+      </a>
+      <div class="pp-note">Secure payment via PayPal</div>
+    </div>
+  </div>
 </div></section>
 
 <section class="faq" id="faq"><div class="wrap">
@@ -353,14 +389,14 @@ footer a:hover{color:#fff}
         <div class="os">Windows 精简版</div>
         <div class="meta">Win 10/11 64位 · 90 MB · 18 项</div>
       </div>
-      <a class="btn-sm" href="https://github.com/cjer007/PDFToolBox/releases/latest/download/PDFToolBoxLite.zip">下载</a>
+      <a class="btn-sm" href="https://lic.cjers.top/download/PDFToolBoxLite.zip">下载</a>
     </div>
     <div class="dlopt">
       <div class="info">
         <div class="os">Windows 完整版</div>
         <div class="meta">Win 10/11 64位 · 145 MB · 19 项</div>
       </div>
-      <a class="btn-sm" href="https://github.com/cjer007/PDFToolBox/releases/latest/download/PDFToolBox.zip">下载</a>
+      <a class="btn-sm" href="https://lic.cjers.top/download/PDFToolBox.zip">下载</a>
     </div>
     <div class="dlopt">
       <div class="info">
@@ -379,7 +415,7 @@ footer a:hover{color:#fff}
   </div>
   <div class="fine">
     下载后首次运行会提示选择语言（中/英/日/俄/西）· 免费试用 5 次 · 满意后 ¥66 激活终身版<br>
-    安装包托管在 GitHub Releases，不限速、可断点续传
+    安装包由本站直连提供，国内不限速；macOS 版见 GitHub Releases
   </div>
 </div></section>
 

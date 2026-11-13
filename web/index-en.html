@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF Toolbox · All processing stays on your computer</title>
+<meta name="description" content="19 PDF tools that run entirely on your own machine. No uploads, no cloud, no subscription. One-time purchase $8.8, lifetime access.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#D93025; --red-d:#b3261c; --red-l:#fdefed;
+  --dark:#16181d; --ink:#2b2f36; --gray:#5b6470; --mute:#8a929e;
+  --line:#e6e8ec; --bg:#fafbfc; --white:#fff;
+}
+html{scroll-behavior:smooth}
+section[id],div[id]{scroll-margin-top:92px}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px; line-height:1.7; color:var(--ink);
+  background:
+    radial-gradient(1100px 720px at 6% -8%, rgba(217,48,37,.075) 0%, transparent 58%),
+    radial-gradient(950px 640px at 96% 4%, rgba(66,133,244,.055) 0%, transparent 52%),
+    radial-gradient(800px 600px at 50% 100%, rgba(217,48,37,.03) 0%, transparent 60%),
+    linear-gradient(180deg,#fcfdfe 0%,#f5f7fa 100%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);
+  backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;height:72px;gap:30px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;letter-spacing:-.3px;color:var(--dark)}
+.logo i{width:34px;height:34px;background:linear-gradient(135deg,var(--red),#e8503f);border-radius:9px;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-style:normal;
+  font-size:17px;font-weight:900;box-shadow:0 2px 8px rgba(217,48,37,.3)}
+nav ul{display:flex;gap:26px;list-style:none;font-size:15px;color:var(--gray);margin-left:auto}
+nav ul a{transition:color .15s;padding:4px 0}
+nav ul a:hover{color:var(--red)}
+nav .btn{background:var(--red);color:#fff;padding:11px 22px;border-radius:8px;font-size:15px;
+  font-weight:600;transition:.15s;box-shadow:0 2px 10px rgba(217,48,37,.22)}
+nav .btn:hover{background:var(--red-d);transform:translateY(-1px)}
+.lang-sw{font-size:14px;color:var(--gray);border:1px solid var(--line);padding:6px 14px;
+  border-radius:20px;transition:.15s}
+.lang-sw:hover{border-color:var(--red);color:var(--red)}
+
+.hero{padding:96px 0 84px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-40%;left:50%;transform:translateX(-50%);
+  width:900px;height:900px;background:radial-gradient(circle,rgba(217,48,37,.05) 0%,transparent 65%);
+  pointer-events:none}
+.hero .wrap{position:relative}
+.hero .tag{display:inline-flex;align-items:center;gap:9px;background:var(--red-l);color:var(--red);
+  border-radius:32px;padding:9px 20px;font-size:15px;font-weight:600;margin-bottom:28px}
+.hero h1{font-size:54px;line-height:1.18;font-weight:800;letter-spacing:-1.8px;
+  color:var(--dark);margin-bottom:24px}
+.hero h1 em{color:var(--red);font-style:normal}
+.hero p.sub{font-size:19px;line-height:1.75;color:var(--gray);max-width:720px;margin:0 auto 40px}
+.hero .cta{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+.btn-lg{display:inline-flex;align-items:center;gap:10px;padding:17px 36px;border-radius:10px;
+  font-size:17px;font-weight:700;transition:.18s}
+.btn-main{background:var(--red);color:#fff;box-shadow:0 6px 22px rgba(217,48,37,.3)}
+.btn-main:hover{background:var(--red-d);transform:translateY(-2px);box-shadow:0 10px 28px rgba(217,48,37,.36)}
+.btn-ghost{background:#fff;color:var(--dark);border:2px solid var(--line)}
+.btn-ghost:hover{border-color:var(--red);color:var(--red)}
+.hero .note{font-size:15px;color:var(--mute)}
+
+.pillars{background:#fff;padding:80px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pillars .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+.pillar{text-align:center;padding:0 12px}
+.pillar .ico{width:68px;height:68px;margin:0 auto 22px;border-radius:18px;
+  background:linear-gradient(135deg,var(--red-l),#fbe0dc);
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+  box-shadow:0 4px 14px rgba(217,48,37,.08)}
+.pillar h3{font-size:19px;font-weight:700;margin-bottom:12px;color:var(--dark)}
+.pillar p{font-size:16px;line-height:1.75;color:var(--gray)}
+
+.tools{padding:96px 0}
+.sec-head{text-align:center;margin-bottom:56px}
+.sec-head h2{font-size:40px;font-weight:800;letter-spacing:-1.2px;color:var(--dark);margin-bottom:14px}
+.sec-head p{font-size:17px;color:var(--gray)}
+.group{margin-bottom:52px}
+.group h4{font-size:14px;font-weight:700;color:var(--mute);letter-spacing:1.6px;
+  text-transform:uppercase;margin-bottom:20px;padding-left:4px;display:flex;align-items:center;gap:10px}
+.group h4::after{content:"";flex:1;height:1px;background:var(--line)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px 22px;
+  transition:.2s;display:flex;gap:16px;align-items:flex-start}
+.card:hover{border-color:var(--red);box-shadow:0 8px 28px rgba(0,0,0,.08);transform:translateY(-3px)}
+.card .ci{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:22px;flex-shrink:0;background:var(--bg)}
+.card b{display:block;font-size:16.5px;font-weight:700;margin-bottom:6px;color:var(--dark)}
+.card span{font-size:14.5px;color:var(--gray);line-height:1.65}
+.card code{background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:13px}
+
+.note-block{margin-top:44px;padding:22px 26px;background:rgba(255,255,255,.75);
+  border:1px solid var(--line);border-left:4px solid var(--mute);border-radius:10px;
+  font-size:15px;color:var(--gray);line-height:1.8}
+.note-block b{color:var(--ink)}
+
+.price{background:var(--dark);color:#fff;padding:96px 0}
+.price .sec-head h2{color:#fff}
+.price .sec-head p{color:#939aa6}
+.plans{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.plan{background:#212429;border:1.5px solid #2f333a;border-radius:18px;padding:38px 34px;width:330px}
+.plan.hot{background:#fff;color:var(--ink);border-color:var(--red);position:relative;
+  box-shadow:0 16px 48px rgba(217,48,37,.22);transform:scale(1.03)}
+.plan.hot .badge{position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+  background:var(--red);color:#fff;font-size:13px;font-weight:700;padding:6px 20px;
+  border-radius:22px;white-space:nowrap;box-shadow:0 4px 12px rgba(217,48,37,.4)}
+.plan .pn{font-size:15px;font-weight:700;margin-bottom:10px;color:#939aa6}
+.plan.hot .pn{color:var(--gray)}
+.plan .amount{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1.05;color:#fff}
+.plan.hot .amount{color:var(--dark)}
+.plan .amount small{font-size:16px;font-weight:600;color:#939aa6;letter-spacing:0}
+.plan.hot .amount small{color:var(--gray)}
+.usd{font-size:14px;color:var(--gray);margin-top:8px;padding-bottom:4px}
+.usd b{color:var(--red);font-size:15px}
+.plan ul{list-style:none;margin:26px 0 28px;font-size:15px;color:#b4bac4;line-height:1.6}
+.plan.hot ul{color:var(--gray)}
+.plan li{padding:9px 0;display:flex;gap:11px;align-items:flex-start}
+.plan li::before{content:"✓";color:var(--red);font-weight:900;flex-shrink:0;font-size:16px}
+.plan:not(.hot) li::before{content:"×";color:#5f6771;font-size:19px;font-weight:400}
+.plan .btn-lg{width:100%;justify-content:center;padding:16px;font-size:16px}
+.compare{margin-top:48px;text-align:center;font-size:16px;color:#7f8792}
+.compare b{color:#fff}
+.compare b.hot{color:#ff9a92}
+
+.paypal-box{display:flex;align-items:center;justify-content:space-between;gap:32px;
+  flex-wrap:wrap;margin-top:52px;padding:30px 36px;border-radius:16px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.pp-left{flex:1;min-width:260px;text-align:left}
+.pp-title{font-size:19px;font-weight:700;color:#fff;margin-bottom:8px}
+.pp-desc{font-size:15px;color:#9aa2ae;line-height:1.75}
+.pp-desc b{color:#fff}
+.pp-right{text-align:center;flex-shrink:0}
+.pp-btn{display:inline-flex;align-items:center;gap:14px;background:#FFC439;
+  padding:14px 26px;border-radius:28px;transition:.15s;
+  box-shadow:0 4px 16px rgba(255,196,57,.25)}
+.pp-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,196,57,.35)}
+.pp-logo{font-size:19px;font-weight:800;color:#003087;font-style:italic;letter-spacing:-.5px}
+.pp-logo span{color:#009cde}
+.pp-text{font-size:16px;font-weight:700;color:#003087;
+  border-left:1px solid rgba(0,48,135,.25);padding-left:14px}
+.pp-note{margin-top:10px;font-size:12.5px;color:#7f8792}
+
+.faq{padding:96px 0}
+.faq .list{max-width:840px;margin:0 auto}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:13px;
+  margin-bottom:13px;padding:22px 26px;transition:.15s}
+.faq details[open]{border-color:#d5d9e0;box-shadow:0 4px 16px rgba(0,0,0,.04)}
+.faq summary{font-weight:700;font-size:16.5px;cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--dark)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--red);font-size:26px;font-weight:300;
+  line-height:1;flex-shrink:0;transition:.2s}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin-top:14px;font-size:15.5px;color:var(--gray);line-height:1.8}
+
+.dl{padding:80px 0 88px;background:rgba(255,255,255,.72);text-align:center}
+.dl h2{font-size:36px;font-weight:800;margin-bottom:14px;letter-spacing:-.8px;color:var(--dark)}
+.dl p{color:var(--gray);margin-bottom:34px;font-size:17px}
+.dl .opts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:760px;margin:0 auto}
+.dlopt{background:#fff;border:1.5px solid var(--line);border-radius:13px;
+  padding:20px 24px;transition:.18s;display:flex;align-items:center;
+  justify-content:space-between;gap:18px;text-align:left}
+.dlopt:hover{border-color:var(--red);box-shadow:0 7px 22px rgba(0,0,0,.07);transform:translateY(-2px)}
+.dlopt .info{min-width:0}
+.dlopt .os{font-size:16px;font-weight:700;margin-bottom:3px;color:var(--dark)}
+.dlopt .meta{font-size:13.5px;color:var(--mute);line-height:1.5}
+.dlopt .btn-sm{display:inline-block;background:var(--red);color:#fff;padding:10px 22px;
+  border-radius:8px;font-size:14.5px;font-weight:600;transition:.15s;white-space:nowrap;flex-shrink:0}
+.dlopt .btn-sm:hover{background:var(--red-d)}
+.dlopt .soon{display:inline-block;background:#f1f2f4;color:#a0a7b0;padding:10px 22px;
+  border-radius:8px;font-size:14.5px;font-weight:600;white-space:nowrap;flex-shrink:0}
+.dl .fine{margin-top:30px;font-size:14px;color:var(--mute);line-height:1.85}
+
+footer{background:var(--dark);color:#7f8792;padding:44px 0;font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:center}
+footer a{transition:color .15s}
+footer a:hover{color:#fff}
+
+@media(max-width:900px){
+  .wrap{padding:0 22px}
+  .hero{padding:64px 0 56px}
+  .hero h1{font-size:34px;letter-spacing:-1px}
+  .hero p.sub{font-size:16.5px}
+  .sec-head h2{font-size:30px}
+  .pillars .grid{grid-template-columns:1fr;gap:40px}
+  .cards{grid-template-columns:1fr}
+  .plans{flex-direction:column;align-items:stretch}
+  .plan{width:auto}
+  .plan.hot{transform:none}
+  nav ul{display:none}
+  nav .wrap{height:64px;gap:0}
+  .tools,.price,.faq,.dl{padding:64px 0}
+  .btn-lg{padding:15px 26px;font-size:15.5px}
+  .dl .opts{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="logo"><i>P</i> PDF Toolbox</div>
+  <ul>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#price">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#download">Download</a></li>
+  </ul>
+  <a class="lang-sw" href="/?lang=zh">中文</a>
+  <a class="btn" href="#download">Download</a>
+</div></nav>
+
+<section class="hero"><div class="wrap">
+  <div class="tag">🔒 Files never leave your computer · Works offline</div>
+  <h1>Your PDFs stay <em>on your own machine</em></h1>
+  <p class="sub">
+    19 PDF tools that run entirely on your PC. No upload, no cloud, no queue, no limits.<br>
+    Contracts, medical records, IDs, case files — they shouldn't be sent to someone else's
+    server just to change a format.
+  </p>
+  <div class="cta">
+    <a class="btn-lg btn-main" href="#download">Download free · 5 trial runs</a>
+    <a class="btn-lg btn-ghost" href="#price">See pricing</a>
+  </div>
+  <div class="note">Windows 10/11 64-bit · No Python required · No account needed</div>
+</div></section>
+
+<section class="pillars"><div class="wrap"><div class="grid">
+  <div class="pillar">
+    <div class="ico">🔒</div>
+    <h3>100% local processing</h3>
+    <p>The PDF engine is bundled inside the app. Files never leave your disk. Unplug the network and everything still works.</p>
+  </div>
+  <div class="pillar">
+    <div class="ico">💰</div>
+    <h3>$8.8 one-time</h3>
+    <p>Not a subscription. No monthly fee, no annual renewal. Pay once, use forever, unlimited files.</p>
+  </div>
+  <div class="pillar">
+    <div class="ico">⚡</div>
+    <h3>No upload waiting</h3>
+    <p>No waiting to upload, no waiting to render, no waiting to download. A 500-page file takes seconds, not minutes.</p>
+  </div>
+</div></div></section>
+
+<section class="tools" id="tools"><div class="wrap">
+  <div class="sec-head">
+    <h2>19 tools, one app</h2>
+    <p>Everything you'd use an online PDF site for — without handing over your files</p>
+  </div>
+
+  <div class="group"><h4>Organize</h4><div class="cards">
+    <div class="card"><div class="ci">📎</div><div><b>Merge PDF</b><span>Combine multiple PDFs in the order you choose. Hundreds of files, thousands of pages, mixed page sizes supported.</span></div></div>
+    <div class="card"><div class="ci">✂️</div><div><b>Split PDF</b><span>Split every N pages, or by custom ranges like <code>1-3|4-6|7-</code>. Great for breaking a binder into separate files.</span></div></div>
+    <div class="card"><div class="ci">📄</div><div><b>Extract Pages</b><span>Pick out just the pages you need with expressions like <code>1-3,5,7-9</code> — no clicking page by page.</span></div></div>
+    <div class="card"><div class="ci">🗑️</div><div><b>Delete Pages</b><span>Remove blank pages, duplicates, or unwanted attachments. The file structure is rebuilt cleanly.</span></div></div>
+    <div class="card"><div class="ci">🔀</div><div><b>Reorder Pages</b><span>Scanned out of order? Rearrange with <code>3,1,2,4-</code>. Reverse, duplicate, or shuffle pages.</span></div></div>
+    <div class="card"><div class="ci">🔄</div><div><b>Rotate Pages</b><span>Fix sideways scans. 90/180/270 degrees, applied to specific pages or the whole document.</span></div></div>
+  </div></div>
+
+  <div class="group"><h4>Convert</h4><div class="cards">
+    <div class="card"><div class="ci">📝</div><div><b>Office to PDF</b><span>Convert Word, Excel, PowerPoint to PDF. Uses your installed Office — fonts, formulas and charts stay exact. Batch conversion supported.</span></div></div>
+    <div class="card"><div class="ci">🖼️</div><div><b>PDF to Image</b><span>Export every page as PNG or JPG. DPI from 72 to 600 — 150 for screens, 300 for print, 600 for archiving.</span></div></div>
+    <div class="card"><div class="ci">📷</div><div><b>Image to PDF</b><span>Combine phone photos into one PDF. Original size or A4 centered, in the order you set.</span></div></div>
+    <div class="card"><div class="ci">📘</div><div><b>PDF to Word</b><span>Convert to editable .docx. Paragraphs, tables and images are preserved as closely as possible.</span></div></div>
+    <div class="card"><div class="ci">📃</div><div><b>PDF to Text</b><span>Plain text only, no formatting. Output as .txt for searching, copying or feeding into other tools.</span></div></div>
+  </div></div>
+
+  <div class="group"><h4>Optimize</h4><div class="cards">
+    <div class="card"><div class="ci">🗜️</div><div><b>Compress PDF</b><span>Three levels — lossless (text stays selectable), medium (downsampled images), strong (rasterized). Scans often shrink by half.</span></div></div>
+    <div class="card"><div class="ci">🩹</div><div><b>Repair PDF</b><span>Rebuild the file structure of PDFs that won't open. Success depends on the damage — always check the result.</span></div></div>
+  </div></div>
+
+  <div class="group"><h4>Edit</h4><div class="cards">
+    <div class="card"><div class="ci">🔢</div><div><b>Page Numbers</b><span>Five positions, four formats (Page X / X of Y / - X - / plain). Font size and starting number configurable.</span></div></div>
+    <div class="card"><div class="ci">✂️</div><div><b>Crop PDF</b><span>Trim white margins or scanner black edges. Measured in points, each side configurable.</span></div></div>
+    <div class="card"><div class="ci">⬛</div><div><b>Redact</b><span>Black out keywords like ID numbers or addresses. <b>Truly deleted</b> — text and underlying content are erased, not covered. Scanned PDFs need OCR first.</span></div></div>
+    <div class="card"><div class="ci">🔍</div><div><b>Compare PDF</b><span>Compare two versions page by page and generate a diff file. Pinpoints exactly which pages changed.</span></div></div>
+  </div></div>
+
+  <div class="group"><h4>Secure</h4><div class="cards">
+    <div class="card"><div class="ci">🔐</div><div><b>Encrypt PDF</b><span>Set an open password with AES-256. Optionally set a separate owner password to restrict printing and copying.</span></div></div>
+    <div class="card"><div class="ci">🔓</div><div><b>Remove Password</b><span>Strip encryption when you know the password. Without it, AES-256 can't be broken.</span></div></div>
+    <div class="card"><div class="ci">💧</div><div><b>Watermark</b><span>Diagonal text watermark across every page — "CONFIDENTIAL", "DRAFT", or your company name. Opacity and size adjustable.</span></div></div>
+  </div></div>
+
+  <div class="note-block">
+    <b>What's not included:</b> OCR, e-signature, PDF to Excel/PPT, and PDF/A archiving.
+    Tell us if you need any of them and we'll consider it.
+  </div>
+</div></section>
+
+<section class="price" id="price"><div class="wrap">
+  <div class="sec-head">
+    <h2>Buy once, no subscription</h2>
+    <p>Online PDF sites charge monthly — and keep your files on their servers</p>
+  </div>
+  <div class="plans">
+    <div class="plan">
+      <div class="pn">Typical online tool</div>
+      <div class="amount">$5<small> /month</small></div>
+      <ul>
+        <li>Pay every month or lose access</li>
+        <li>Files uploaded to their servers</li>
+        <li>Size and usage limits</li>
+        <li>Unclear data retention policy</li>
+      </ul>
+    </div>
+    <div class="plan hot">
+      <div class="badge">Best value</div>
+      <div class="pn">PDF Toolbox · Lifetime</div>
+      <div class="amount">$8.8<small> / one-time</small></div>
+      <div class="usd">China users <b>¥66</b> · Alipay accepted</div>
+      <ul>
+        <li>Pay once, use forever</li>
+        <li>Files stay on your machine</li>
+        <li>Unlimited files, unlimited size</li>
+        <li>Works offline</li>
+        <li>Free upgrades</li>
+      </ul>
+      <a class="btn-lg btn-main" href="#download">Get it now</a>
+    </div>
+  </div>
+  <div class="compare">
+    One coffee, for a tool that's yours forever · <b class="hot">less than 1 cent a day</b>
+  </div>
+
+  <div class="paypal-box">
+    <div class="pp-left">
+      <div class="pp-title">International customers · Pay with PayPal</div>
+      <div class="pp-desc">
+        Click the button below to pay securely on PayPal ($8.8 USD).<br>
+        After payment, go back to the app, enter your email and click <b>Submit Request</b>.
+      </div>
+    </div>
+    <div class="pp-right">
+      <a class="pp-btn" href="https://paypal.me/cjer886/8.8" target="_blank" rel="noopener">
+        <span class="pp-logo">Pay<span>Pal</span></span>
+        <span class="pp-text">Pay $8.8</span>
+      </a>
+      <div class="pp-note">Secure payment via PayPal</div>
+    </div>
+  </div>
+</div></section>
+
+<section class="faq" id="faq"><div class="wrap">
+  <div class="sec-head"><h2>FAQ</h2></div>
+  <div class="list">
+    <details open><summary>Are my files really not uploaded?</summary>
+      <p>Correct. The PDF engine (MuPDF) is packaged inside the application. Everything happens in
+      your computer's memory and on its disk. The app makes one small license check at startup
+      (a few dozen bytes, machine ID only) — no file content. You can block its network access
+      with a firewall and all features still work during the trial.</p></details>
+    <details><summary>Which engine is used? Is conversion quality good?</summary>
+      <p>PDF operations use MuPDF and pypdf, both industry-standard open source engines.
+      Office to PDF calls your installed Word/Excel/PowerPoint directly, so output quality is
+      exactly what Office produces — better than most online converters.</p></details>
+    <details><summary>Why is it so cheap?</summary>
+      <p>Because there's no server to rent for you. Online tools charge monthly, and a large part
+      of that goes to servers and bandwidth. This app runs on your machine, so that cost doesn't exist.</p></details>
+    <details><summary>I changed computers. What now?</summary>
+      <p>Licenses are tied to the machine. Use the trial runs on the new machine first,
+      then contact us to transfer your license.</p></details>
+    <details><summary>Does it work with scanned documents?</summary>
+      <p>Merge, split, compress, watermark and encrypt all work with scans. "PDF to Word" and
+      "Redact" need a text layer, so pure image scans require OCR — results for those two
+      are limited on scanned files.</p></details>
+    <details><summary>Can I get an invoice?</summary>
+      <p>Yes. Contact us after payment with your billing details.</p></details>
+  </div>
+</div></section>
+
+<section class="dl" id="download"><div class="wrap">
+  <h2>Download</h2>
+  <p>Portable — unzip and run. No Python, no account, no installer.</p>
+  <div class="opts">
+    <div class="dlopt">
+      <div class="info">
+        <div class="os">Windows Lite</div>
+        <div class="meta">Win 10/11 64-bit · 90 MB · 18 tools</div>
+      </div>
+      <a class="btn-sm" href="/download/PDFToolBoxLite.zip">Download</a>
+    </div>
+    <div class="dlopt">
+      <div class="info">
+        <div class="os">Windows Full</div>
+        <div class="meta">Win 10/11 64-bit · 145 MB · 19 tools</div>
+      </div>
+      <a class="btn-sm" href="/download/PDFToolBox.zip">Download</a>
+    </div>
+    <div class="dlopt">
+      <div class="info">
+        <div class="os">macOS</div>
+        <div class="meta">Apple Silicon / Intel</div>
+      </div>
+      <a class="btn-sm" href="https://github.com/cjer007/PDFToolBox/releases/latest/download/PDFToolBoxLite-mac.zip">Download</a>
+    </div>
+    <div class="dlopt">
+      <div class="info">
+        <div class="os">Android</div>
+        <div class="meta">Android 8.0+</div>
+      </div>
+      <span class="soon">In development</span>
+    </div>
+  </div>
+  <div class="fine">
+    First launch asks you to pick a language (EN / 中文 / 日本語 / Русский / Español) · 5 free trial runs · $8.8 to activate lifetime<br>
+    Downloads served directly from our server — no GitHub account needed
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div>© 2026 PDF Toolbox · All processing stays local</div>
+  <div>
+    <a href="/?lang=zh">中文</a> · <a href="#faq">FAQ</a>
+  </div>
+</div></footer>
+
+</body>
+</html>
