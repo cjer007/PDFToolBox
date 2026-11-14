@@ -83,6 +83,17 @@ xattr -cr /Applications/PDFToolBox.app
 4. 2 小时内会有一封激活邮件发到你填的邮箱，收到后重启软件即可
 
 
+
+### ⚠️ 关于杀毒软件误报
+
+本软件使用 PyInstaller 打包，且**未购买数字签名证书**，部分杀毒软件（尤其 360、火绒）可能误报为木马。这是 Python 打包程序的常见误报，不是真病毒。
+
+**验证方法**：把安装包上传到 [VirusTotal](https://www.virustotal.com/) 查看多引擎检测结果，或在杀软里添加信任。
+
+**软件行为**：不联网上传文件 · 不写注册表启动项 · 不驻留后台 · 只发一次授权校验（仅传机器码哈希）
+
+界面层源码公开可查：[github.com/cjer007/PDFToolBox](https://github.com/cjer007/PDFToolBox)
+
 ## 多语言
 
 首次启动会让你选界面语言，之后可在右上角随时切换。
