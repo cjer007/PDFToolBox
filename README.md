@@ -3,13 +3,6 @@
 > 19 项 PDF 处理功能，**全部在你的电脑本地完成**，文件不上传、不联网、不排队。
 > 一次买断 ¥66 / $8.8，终身使用，不限次数。
 
-![主界面](screenshots/main.png)
-
-<p align="center">
-  <img src="screenshots/activate.png" width="340" alt="激活窗口">
-</p>
-
-
 官网与下载：**https://lic.cjers.top**
 
 ---
