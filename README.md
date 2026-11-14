@@ -51,16 +51,19 @@
 
 ## 下载
 
-| 版本 | 说明 |
-|---|---|
-| [Windows 精简版](https://github.com/cjer007/PDFToolBox/releases/latest/download/PDFToolBoxLite.zip) | 90 MB · 18 项（不含 PDF 转 Word） |
-| [Windows 完整版](https://github.com/cjer007/PDFToolBox/releases/latest/download/PDFToolBox.zip) | 145 MB · 全部 19 项 |
-| [macOS](https://github.com/cjer007/PDFToolBox/releases/latest/download/PDFToolBoxLite-mac.zip) | Apple Silicon / Intel |
-| Android | 开发中 |
+| 平台 | 文件 | 说明 |
+|---|---|---|
+| Windows | [PDFToolBox-Setup.exe](https://lic.cjers.top/download/PDFToolBox-Setup.exe) | 108 MB · 安装版 · 全部 19 项 |
+| macOS | [PDFToolBox-mac.zip](https://github.com/cjer007/PDFToolBox/releases/latest/download/PDFToolBox-mac.zip) | 138 MB · 解压后拖进应用程序 |
 
-免安装，解压即用。不需要装 Python，不需要注册账号。
+**Windows 是安装程序**，双击安装，自动创建桌面和开始菜单快捷方式，自带卸载。
 
-**系统要求**：Windows 10/11 64 位；macOS 11+
+**macOS** 未签名，首次打开需要右键 → 打开，或在终端执行：
+
+```bash
+xattr -cr /Applications/PDFToolBox.app
+```
+
 
 ## 价格
 
